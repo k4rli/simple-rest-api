@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/mountbirch
+    url: jdbc:postgresql://localhost:5432/simplerestapi
     username: postgres
     password: postgres
     initialization-mode: always
@@ -14,12 +14,6 @@ spring:
       ddl-auto: validate
   liquibase:
     change-log: classpath:migrations/liquibase-changelog.xml
-  mail:
-    host: smtp.mailtrap.io
-    port: 2525
-    username: mailtrap
-    password: mailtrap
-    sender: kaur@mountbirch.com
 authentication:
   oauth2:
     clientId: mountbirch

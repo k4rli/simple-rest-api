@@ -1,21 +1,59 @@
-# Mountbirch Spring Boot REST API Skeleton
+# Simple REST API
 
-This project is intended to be a basis for monolithic REST API projects needing user authentication, 
-database and other common features.
-**Currently work in progress.**
+This project is a simple REST API that features:
+- adding customers
+- removing customers
+- modifying customers
 
-## Quick start
+## API endpoints
+
+### POST /api/addCustomer
+**Request body:**  
+```json
+{
+    "name": "Jaanus",
+    "address": "Põhja 15",
+    "balance": "58.05E",
+    "birth_date": "12.01.1981"
+}
+```
+**Response:**  
+
+On success:
+```json
+{
+    "status": "OK",
+    "customer": {
+        "id": 1,
+        "name": "Jaanus",
+        "address": "Põhja 15",
+        "balance": "58.05E",
+        "birth_date": "12.01.1981"
+    }
+}
+```
+On failure:
+```json
+{
+    "status": "FAIL",
+    "errorMessage": "Check your request body."
+}
+```
+
+---
+
+## Running in dev environment
 
 ### Enable annotation processing for Lombok
 
-For IntelliJ Idea setup is following:
+For IntelliJ IDEA, setup is following:
 
 1. Settings -> Annotation Processors
-2. Check **Enable annotation processing**
+2. Check **Enable annotation processing**.
 
 ## Tools used
 
-* [Spring Boot](https://spring.io/projects/spring-boot) - Framework used
+* [Spring Boot](https://spring.io/projects/spring-boot) - Framework
 * [Gradle](https://gradle.org) - Dependency management
-* [Project Lombok](https://projectlombok.org) - Reducing boilerplate code
+* [Project Lombok](https://projectlombok.org) - Reducing code
 * [PostgreSQL](https://www.postgresql.org) - Database

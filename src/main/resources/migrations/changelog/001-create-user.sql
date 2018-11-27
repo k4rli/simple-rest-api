@@ -1,7 +1,7 @@
 --liquibase formatted sql
---changeset kaur_laanemäe:001-create-user.sql
+--changeset karli_udso:001-create-customer.sql
 
-create table users (
+create table customers (
   id SERIAL PRIMARY KEY,
   password VARCHAR(128) NOT NULL,
   primary_email VARCHAR(255) UNIQUE NOT NULL,

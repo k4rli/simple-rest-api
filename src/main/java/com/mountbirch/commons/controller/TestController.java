@@ -6,11 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Kaur Laanemäe on 23/11/2018.
- * Mountbirch OÜ
- * kaur@mountbirch.com
- */
 @RestController
 public class TestController {
 

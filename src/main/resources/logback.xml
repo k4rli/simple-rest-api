@@ -11,7 +11,7 @@
 
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <FileNamePattern>${user.home}/logs/mountbirch-rest-api-skeleton-%d{yyyy-MM-dd}.log</FileNamePattern>
+      <FileNamePattern>${customer.home}/logs/mountbirch-rest-api-skeleton-%d{yyyy-MM-dd}.log</FileNamePattern>
       <MaxHistory>30</MaxHistory>
     </rollingPolicy>
     <encoder>

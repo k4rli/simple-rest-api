@@ -8,14 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-/**
- * Created by Kaur Laanemäe on 19/11/2018.
- * Mountbirch OÜ
- * kaur@mountbirch.com
- */
 @Data
 @Entity( name = "users" )
-public class User {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
