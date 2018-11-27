@@ -1,4 +1,4 @@
-package com.mountbirch.commons.controller;
+package com.karli.commons.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,9 +8,8 @@ import java.util.List;
 
 @RestController
 public class TestController {
-
-    @GetMapping("/authenticated/test")
-    public List<String> isApiOnline(){
+    @GetMapping("/test")
+    public List<String> isApiOnline() {
         List<String> test = new ArrayList<>();
         test.add("Tere");
         test.add("Test");

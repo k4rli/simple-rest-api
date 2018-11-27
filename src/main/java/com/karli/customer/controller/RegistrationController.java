@@ -1,6 +1,6 @@
-package com.mountbirch.user.controller;
+package com.karli.customer.controller;
 
-import com.mountbirch.user.service.CustomerService;
+import com.karli.customer.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class RegistrationController {
     CustomerService customerService;
 
     @PostMapping("/confirm/{registrationToken}")
-    public String confirmRegistrationToken(@PathVariable String registrationToken){
+    public String confirmRegistrationToken(@PathVariable String registrationToken) {
         return "";
     }
 }

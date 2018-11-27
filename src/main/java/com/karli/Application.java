@@ -1,4 +1,4 @@
-package com.mountbirch;
+package com.karli;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -7,7 +7,7 @@ This project is a simple REST API that features:
 
 ## API endpoints
 
-### POST /api/addCustomer
+### POST /customers/addCustomer
 **Request body:**  
 ```json
 {
@@ -22,21 +22,17 @@ This project is a simple REST API that features:
 On success:
 ```json
 {
-    "status": "OK",
-    "customer": {
-        "id": 1,
-        "name": "Jaanus",
-        "address": "Põhja 15",
-        "balance": "58.05E",
-        "birth_date": "12.01.1981"
-    }
+    "id": 1,
+    "name": "Jaanus",
+    "address": "Põhja 15",
+    "balance": "58.05E",
+    "birth_date": "12.01.1981"
 }
 ```
 On failure:
 ```json
 {
-    "status": "FAIL",
-    "errorMessage": "Check your request body."
+    "status": "FAIL"
 }
 ```
 
@@ -50,6 +46,10 @@ For IntelliJ IDEA, setup is following:
 
 1. Settings -> Annotation Processors
 2. Check **Enable annotation processing**.
+
+### Running
+
+`./gradle bootRun`
 
 ## Tools used
 

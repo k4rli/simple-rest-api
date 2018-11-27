@@ -12,6 +12,7 @@ buildscript {
 
 plugins {
     id 'io.franzbecker.gradle-lombok' version '1.8'
+    id 'org.liquibase.gradle' version '2.0.1'
 }
 
 repositories {
@@ -27,7 +28,7 @@ bootJar {
     baseName = 'spring-boot-rest-api-skeleton'
 }
 
-group = "com.mountbirch"
+group = "com.karli"
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
