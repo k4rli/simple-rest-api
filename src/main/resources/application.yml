@@ -1,0 +1,28 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mountbirch
+    username: postgres
+    password: postgres
+    initialization-mode: always
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:migrations/liquibase-changelog.xml
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: mailtrap
+    password: mailtrap
+    sender: kaur@mountbirch.com
+authentication:
+  oauth2:
+    clientId: mountbirch
+    clientSecret: "{noop}password"
+    accessTokenValiditySeconds: 3600
+    refreshTokenValiditySeconds: 1296000
