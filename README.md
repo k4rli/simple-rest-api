@@ -14,7 +14,7 @@ This project is a simple REST API that features:
     "name": "Jaanus",
     "address": "Põhja 15",
     "balance": 58.05,
-    "birth_date": "12.01.1981"
+    "birthday": "12.01.1981"
 }
 ```
 **Response:**  
@@ -26,13 +26,23 @@ On success:
     "name": "Jaanus",
     "address": "Põhja 15",
     "balance": 58.05,
-    "birth_date": "12.01.1981"
+    "birthday": "12.01.1981"
 }
 ```
 
 ---
 
 ## Running in dev environment
+
+### Create PostgreSQL database
+
+1. Start up PostgreSQL utlity.
+    - `psql -U {username} -P`
+2. Create necessary database.
+    - Database name is defined `application.yml` -> `spring.datasource.url`
+        - Also make sure PSQL username and password in `application.yml` are correct.
+    - Run `CREATE DATABASE {databaseName}`.
+    - Confirm database has been created by running `\l`
 
 ### Enable annotation processing for Lombok
 
@@ -43,7 +53,7 @@ For IntelliJ IDEA, setup is following:
 
 ### Running
 
-`./gradle bootRun`
+`./gradlew bootRun`
 
 ## Tools used
 
