@@ -6,29 +6,7 @@ This project is a simple REST API that features:
 - modifying customers
 
 ## API endpoints
-
-### POST /customers/addCustomer
-**Request body:**  
-```json
-{
-    "name": "Jaanus",
-    "address": "Põhja 15",
-    "balance": 58.05,
-    "birthday": "12.01.1981"
-}
-```
-**Response:**  
-
-On success:
-```json
-{
-    "id": 1,
-    "name": "Jaanus",
-    "address": "Põhja 15",
-    "balance": 58.05,
-    "birthday": "12.01.1981"
-}
-```
+View all API documentation [here](API_DOC.md).
 
 ---
 
