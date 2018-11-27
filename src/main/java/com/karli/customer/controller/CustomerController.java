@@ -20,12 +20,21 @@ public class CustomerController {
     @RequestMapping(
             value = {"/addCustomer"},
             method = RequestMethod.POST,
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Customer addCustomer(@RequestBody @Valid Customer customer) {
-        this.customerService.createNewCustomer(customer);
-        return customer;
+        return this.customerService.createNewCustomer(customer);
+    }
+
+    @RequestMapping(
+            value = {"/deleteCustomer/{id}"},
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.TEXT_PLAIN_VALUE
+    )
+    public String deleteCustomer(@PathVariable long id) {
+        return this.customerService.deleteCustomerByID(id);
     }
 
     @RequestMapping(
@@ -33,7 +42,7 @@ public class CustomerController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Customer getCustomerByName(@PathVariable long id) {
+    public Customer getCustomerByID(@PathVariable long id) {
         return this.customerService.findCustomerByID(id);
     }
 }

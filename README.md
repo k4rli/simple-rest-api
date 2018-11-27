@@ -13,7 +13,7 @@ This project is a simple REST API that features:
 {
     "name": "Jaanus",
     "address": "Põhja 15",
-    "balance": "58.05E",
+    "balance": 58.05,
     "birth_date": "12.01.1981"
 }
 ```
@@ -25,14 +25,8 @@ On success:
     "id": 1,
     "name": "Jaanus",
     "address": "Põhja 15",
-    "balance": "58.05E",
+    "balance": 58.05,
     "birth_date": "12.01.1981"
-}
-```
-On failure:
-```json
-{
-    "status": "FAIL"
 }
 ```
 

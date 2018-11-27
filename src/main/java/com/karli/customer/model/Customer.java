@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -27,8 +28,7 @@ public class Customer {
     @Size(min = GENERIC_FIELD_MIN_LENGTH, message = "Address can't be empty.")
     private String address;
 
-    @Size(min = GENERIC_FIELD_MIN_LENGTH, message = "Balance can't be empty.")
-    private String balance;
+    private BigDecimal balance;
 
     @JsonFormat(pattern = CUSTOMER_DATE_FORMAT)
     private Date birthday;
