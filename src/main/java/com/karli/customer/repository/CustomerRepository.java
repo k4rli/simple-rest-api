@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    Customer findByNameIgnoreCase(String primaryEmail);
     Customer findById(long id);
 
     @Transactional
