@@ -12,7 +12,7 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("customer")
-public class PasswordResetController {
+public class CustomerController {
 
     @Autowired
     CustomerService customerService;
