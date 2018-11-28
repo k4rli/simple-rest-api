@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,22 +46,21 @@ public class CustomerController {
     }
 
     @RequestMapping(
-            value = {"/deleteCustomer/{id}"},
+            value = {"/deleteCustomer"},
             method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
-    public String deleteCustomer(@PathVariable long id) {
+    public String deleteCustomer(@RequestParam long id) {
         log.info("Attempting to delete customer with ID " + id + ".");
         return this.customerService.deleteCustomerByID(id);
     }
 
     @RequestMapping(
-            value = {"/getCustomer/{id}"},
+            value = {"/getCustomer"},
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public Customer getCustomerByID(@PathVariable long id) {
+    public Customer getCustomerByID(@RequestParam long id) {
         return this.customerService.findCustomerByID(id);
     }
 
