@@ -20,6 +20,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -85,9 +86,9 @@ public class AddCustomerTests {
         this.mockMvc
                 .perform(request)
                 .andExpect(status().is(400))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.field").value("addCustomer.customer.name"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("must not be null"))
-
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].field").value("addCustomer.customer.name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].message").value("must not be null"))
                 .andReturn();
     }
 }
