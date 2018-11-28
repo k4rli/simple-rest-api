@@ -37,7 +37,10 @@ In the request body, provide the following query parameters with values.
 ```http
 POST /customer/addCustomer
 Content-Type: application/json
-Request-Body: {
+Request-Body:
+```
+```json
+{
     "name": "Jaanus",
     "address": "Põhja 15",
     "balance": 58.05,
@@ -51,7 +54,10 @@ On success:
 ```http
 HTTP/1.1 200 OK
 Content-Type: application/json
-Response-Body: {
+Response-Body:
+```
+```json
+{
     "id": 1,
     "name": "Jaanus",
     "address": "Põhja 15",
