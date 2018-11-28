@@ -1,6 +1,8 @@
 package com.karli.customer.model;
 
+import lombok.Builder;
 import lombok.Data;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +15,7 @@ import java.util.Date;
 @Data
 @Entity(name = "customers")
 public class Customer {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
@@ -23,6 +26,7 @@ public class Customer {
     @NotNull
     private String address;
 
+    @NotNull
     private BigDecimal balance;
 
     @NotNull

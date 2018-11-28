@@ -8,6 +8,11 @@ import java.util.List;
 
 @RestController
 public class TestController {
+    @GetMapping("/")
+    public String baseURL() {
+        return "Hello world";
+    }
+
     @GetMapping("/test")
     public List<String> isApiOnline() {
         List<String> test = new ArrayList<>();

@@ -1,6 +1,7 @@
 package com.karli.customer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,13 +17,20 @@ public class CustomerDTO {
     private static final int GENERIC_FIELD_MIN_LENGTH = 1;
     private static final String CUSTOMER_DATE_FORMAT = "dd.MM.yyyy";
 
+    @JsonIgnore
     @NotNull
     long id;
 
-    @Size(min = NAME_MIN_LENGTH, message = "Name must be at least 2 characters long.")
+    @Size(
+            min = NAME_MIN_LENGTH,
+            message = "Name must be at least 2 characters long."
+    )
     private String name;
 
-    @Size(min = GENERIC_FIELD_MIN_LENGTH, message = "Address can't be empty.")
+    @Size(
+            min = GENERIC_FIELD_MIN_LENGTH,
+            message = "Address can't be empty."
+    )
     private String address;
 
     private BigDecimal balance;

@@ -26,27 +26,29 @@ public class CustomerController {
     @RequestMapping(
             value = {"/addCustomer"},
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public Customer addCustomer(@DTO(CustomerDTO.class) @Valid Customer customer) {
+        log.info("New customer added. Name: " + customer.getName());
         return this.customerService.createNewCustomer(customer);
     }
 
     @RequestMapping(
             value = {"/deleteCustomer/{id}"},
             method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.TEXT_PLAIN_VALUE
     )
     public String deleteCustomer(@PathVariable long id) {
+        log.info("Attempting to delete customer with ID " + id + ".");
         return this.customerService.deleteCustomerByID(id);
     }
 
     @RequestMapping(
             value = {"/getCustomer/{id}"},
             method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public Customer getCustomerByID(@PathVariable long id) {
         return this.customerService.findCustomerByID(id);
@@ -55,8 +57,8 @@ public class CustomerController {
     @RequestMapping(
             value = {"/modifyCustomer"},
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public Customer modifyCustomer(@DTO(CustomerDTO.class) Customer customer) {
         System.out.println(customer.getId() );
