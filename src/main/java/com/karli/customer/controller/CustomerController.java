@@ -7,16 +7,27 @@ import com.karli.customer.model.CustomerDTO;
 import com.karli.customer.service.CustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 @Slf4j
 @RestController
+@Validated
 @RequestMapping("customer")
 public class CustomerController {
 
@@ -30,7 +41,6 @@ public class CustomerController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public Customer addCustomer(@DTO(CustomerDTO.class) @Valid Customer customer) {
-        log.info("New customer added. Name: " + customer.getName());
         return this.customerService.createNewCustomer(customer);
     }
 
@@ -61,7 +71,7 @@ public class CustomerController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public Customer modifyCustomer(@DTO(CustomerDTO.class) Customer customer) {
-        System.out.println(customer.getId() );
+        System.out.println(customer.getId());
         if (customer.getId() == 0) throw new MissingParameterException("id");
 //        return this.customerService.updateCustomerWithModifiedFields(1, customer);
         return customer;
