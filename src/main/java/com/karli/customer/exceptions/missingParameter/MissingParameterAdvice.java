@@ -1,4 +1,4 @@
-package com.karli.customer.exceptions.customer;
+package com.karli.customer.exceptions.missingParameter;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class CustomerNotFoundAdvice {
+class MissingParameterAdvice {
     @ResponseBody
-    @ExceptionHandler(CustomerNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    String customerNotFoundHandler(CustomerNotFoundException e) {
+    @ExceptionHandler(MissingParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    String missingParameterHandler(MissingParameterException e) {
         return e.getMessage();
     }
 }

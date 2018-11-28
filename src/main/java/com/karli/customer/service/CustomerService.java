@@ -45,4 +45,10 @@ public class CustomerService {
         if (targetCustomer == 0) throw new CustomerNotFoundException(id);
         return "Customer with ID " + id + " has been deleted.";
     }
+
+    public Customer updateCustomerWithModifiedFields(long id, Customer customerWithModifiedData) {
+        Customer targetCustomer = this.customerRepository.findById(id);
+        if (targetCustomer == null) throw new CustomerNotFoundException(id);
+        return targetCustomer;
+    }
 }

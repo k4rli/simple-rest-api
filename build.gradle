@@ -43,4 +43,5 @@ dependencies {
     compile("org.liquibase:liquibase-core:3.6.2")
     testCompile("junit:junit:4.12")
     testCompile("org.mockito:mockito-all:1.10.19")
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '0.7.5'
 }
