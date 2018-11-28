@@ -12,6 +12,6 @@ class MissingParameterAdvice {
     @ExceptionHandler(MissingParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     String missingParameterHandler(MissingParameterException e) {
-        return e.getMessage();
+        return "{\"error\": \"" + e.getMessage() + "\"}";
     }
 }

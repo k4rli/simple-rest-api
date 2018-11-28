@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 class CustomerNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(CustomerNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     String customerNotFoundHandler(CustomerNotFoundException e) {
-        return e.getMessage();
+        return "{\"error\": \"" + e.getMessage() + "\"}";
     }
 }

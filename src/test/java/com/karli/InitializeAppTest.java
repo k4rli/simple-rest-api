@@ -1,6 +1,5 @@
 package com.karli;
 
-import com.karli.customer.model.Customer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InitializeAppTest {
     @Autowired
     private MockMvc mockMvc;
-
-    Customer customer = new Customer();
 
     @Test
     public void baseURLResponds() throws Exception {

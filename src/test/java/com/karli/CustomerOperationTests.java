@@ -3,9 +3,6 @@ package com.karli;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.karli.customer.model.Customer;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,6 +24,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -162,6 +160,18 @@ public class CustomerOperationTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.address").value("Põhja 16"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.balance").isNumber())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.birthday").isString())
+                .andReturn();
+    }
+
+    @Test
+    public void shouldGetCustomerWhoDoesNotExist() throws Exception {
+        MockHttpServletRequestBuilder getCustomerRequest = get(GET_CUSTOMER_ENDPOINT)
+                .param("id", "2");
+        this.mockMvc
+                .perform(getCustomerRequest)
+                .andExpect(status().is(204))
+                .andExpect(MockMvcResultMatchers.jsonPath("*.error").value("Could not find customer by ID: 3"))
+                .andDo(print())
                 .andReturn();
     }
 }
