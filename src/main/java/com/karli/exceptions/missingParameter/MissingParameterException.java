@@ -1,4 +1,4 @@
-package com.karli.customer.exceptions.missingParameter;
+package com.karli.exceptions.missingParameter;
 
 public class MissingParameterException extends RuntimeException {
     public MissingParameterException(String[] missingParameter) {

@@ -1,8 +1,8 @@
 package com.karli.customer.controller;
 
-import com.karli.commons.util.DTO;
-import com.karli.customer.exceptions.customer.CustomerNotFoundException;
-import com.karli.customer.exceptions.missingParameter.MissingParameterException;
+import com.karli.util.DTO;
+import com.karli.exceptions.customer.CustomerNotFoundException;
+import com.karli.exceptions.missingParameter.MissingParameterException;
 import com.karli.customer.model.Customer;
 import com.karli.customer.model.CustomerDTO;
 import com.karli.customer.service.CustomerService;
@@ -11,7 +11,6 @@ import com.karli.response.types.CustomResponseCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -1,6 +1,6 @@
-package com.karli.commons.util;
+package com.karli.util;
 
-import com.karli.commons.api.ApiError;
+import com.karli.api.ApiError;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

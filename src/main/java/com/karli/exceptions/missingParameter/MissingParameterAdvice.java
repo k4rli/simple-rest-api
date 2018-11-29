@@ -1,4 +1,4 @@
-package com.karli.customer.exceptions.missingParameter;
+package com.karli.exceptions.missingParameter;
 
 import com.karli.response.model.CustomResponse;
 import com.karli.response.types.CustomResponseCodes;

@@ -1,4 +1,4 @@
-package com.karli.commons.util;
+package com.karli.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

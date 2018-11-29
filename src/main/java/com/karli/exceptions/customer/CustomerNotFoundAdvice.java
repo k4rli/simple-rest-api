@@ -1,4 +1,4 @@
-package com.karli.customer.exceptions.customer;
+package com.karli.exceptions.customer;
 
 import com.karli.response.model.CustomResponse;
 import com.karli.response.types.CustomResponseCodes;

@@ -1,4 +1,4 @@
-package com.karli.commons.util;
+package com.karli.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;

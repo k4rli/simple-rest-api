@@ -1,4 +1,4 @@
-package com.karli.commons.api;
+package com.karli.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

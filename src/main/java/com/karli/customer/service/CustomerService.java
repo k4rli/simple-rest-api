@@ -1,6 +1,6 @@
 package com.karli.customer.service;
 
-import com.karli.customer.exceptions.customer.CustomerNotFoundException;
+import com.karli.exceptions.customer.CustomerNotFoundException;
 import com.karli.customer.model.Customer;
 import com.karli.customer.repository.CustomerRepository;
 

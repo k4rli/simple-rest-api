@@ -1,4 +1,4 @@
-package com.karli.customer.exceptions.customer;
+package com.karli.exceptions.customer;
 
 import lombok.extern.slf4j.Slf4j;
 
