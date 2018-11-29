@@ -8,13 +8,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Slf4j
 @Service
 public class CustomerService {
 
     private CustomerRepository customerRepository;
+    private DateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -58,7 +63,7 @@ public class CustomerService {
      * @param newAddress changed address
      * @return updated customer
      */
-    public Customer updateCustomerAddress(Customer customer, String newAddress) {
+    private Customer updateCustomerAddress(Customer customer, String newAddress) {
         String oldAddress = customer.getAddress();
         customer.setAddress(newAddress);
         log.info("Updated address for customer with ID "+ customer.getId()
@@ -72,7 +77,7 @@ public class CustomerService {
      * @param newBalance changed balance
      * @return updated customer
      */
-    public Customer updateCustomerBalance(Customer customer, BigDecimal newBalance) {
+    private Customer updateCustomerBalance(Customer customer, BigDecimal newBalance) {
         BigDecimal oldBalance = customer.getBalance();
         customer.setBalance(newBalance);
         log.info("Updated balance for customer with ID "+ customer.getId()
@@ -86,7 +91,7 @@ public class CustomerService {
      * @param newName changed name
      * @return updated customer
      */
-    public Customer updateCustomerName(Customer customer, String newName) {
+    private Customer updateCustomerName(Customer customer, String newName) {
         String oldName = customer.getName();
         customer.setName(newName);
         log.info("Updated name for customer with ID "+ customer.getId()
@@ -100,12 +105,32 @@ public class CustomerService {
      * @param newBirthday changed birthday
      * @return updated customer
      */
-    public Customer updateCustomerBirthday(Customer customer, Date newBirthday) {
+    private Customer updateCustomerBirthday(Customer customer, Date newBirthday) {
         Date oldBirthday = customer.getBirthday();
         customer.setBirthday(newBirthday);
         log.info("Updated birthday for customer with ID "+ customer.getId()
                 + ". Old birthday: " + oldBirthday.toString()
                 + ", new birthday: " + newBirthday.toString() + ".");
         return customer;
+    }
+
+    public Customer updateCustomer(Customer currentCustomer, Map<String, String> newValues) throws ParseException {
+        for (String param : newValues.keySet()) {
+            String value = newValues.get(param);
+            if (param.equals("name")) {
+                this.updateCustomerName(currentCustomer, value);
+            }
+            if (param.equals("address")) {
+                this.updateCustomerAddress(currentCustomer, value);
+            }
+            if (param.equals("balance")) {
+                BigDecimal newBalance = BigDecimal.valueOf(Double.parseDouble(value));
+                this.updateCustomerBalance(currentCustomer, newBalance);
+            }
+            if (param.equals("birthday")) {
+                this.updateCustomerBirthday(currentCustomer, simpleDateFormat.parse(value));
+            }
+        }
+        return this.customerRepository.save(currentCustomer);
     }
 }
