@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -35,5 +36,15 @@ public class InitializeAppTest {
         this.mockMvc
                 .perform(get("/ping"))
                 .andExpect(status().is(200));
+    }
+
+    @Test
+    public void testEndpointRespondsWithValidJson() throws Exception {
+        this.mockMvc
+                .perform(get("/test"))
+                .andExpect(status().is(200))
+                .andExpect(content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0]").value("Hello"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1]").value("world"));
     }
 }
