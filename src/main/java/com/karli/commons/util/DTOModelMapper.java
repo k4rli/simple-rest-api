@@ -44,7 +44,10 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(
+            MethodParameter parameter, ModelAndViewContainer mavContainer,
+            NativeWebRequest webRequest, WebDataBinderFactory binderFactory
+    ) throws Exception {
         Object dto = super.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
         Object id = getEntityId(dto);
         if (id == null) {
@@ -57,7 +60,9 @@ public class DTOModelMapper extends RequestResponseBodyMethodProcessor {
     }
 
     @Override
-    protected Object readWithMessageConverters(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
+    protected Object readWithMessageConverters(HttpInputMessage inputMessage, MethodParameter parameter,
+                                               Type targetType
+    ) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
         for (Annotation ann : parameter.getParameterAnnotations()) {
             DTO dtoType = AnnotationUtils.getAnnotation(ann, DTO.class);
             if (dtoType != null) {

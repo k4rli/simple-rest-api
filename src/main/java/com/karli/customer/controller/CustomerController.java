@@ -28,7 +28,6 @@ import java.util.Map;
 @RequestMapping("customer")
 public class CustomerController {
 
-
     @Autowired
     CustomerService customerService;
 
@@ -80,14 +79,12 @@ public class CustomerController {
             consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public CustomResponse modifyCustomer(@RequestParam Map<String, String> allRequestParams, ModelMap model)
-            throws MissingParameterException {
+    public CustomResponse modifyCustomer(@RequestParam Map<String, String> allRequestParams) throws MissingParameterException {
         if (!allRequestParams.containsKey("id")) throw new MissingParameterException("id");
-        System.out.println(model.get("id"));
         long customerID = Long.parseLong(allRequestParams.get("id"));
         try {
             Customer currentCustomer = this.customerService.findCustomerByID(customerID);
-            currentCustomer = this.customerService.updateCustomer(currentCustomer, allRequestParams);
+            this.customerService.updateCustomer(currentCustomer, allRequestParams);
             return new CustomResponse(CustomResponseCodes.SUCCESS, currentCustomer);
         } catch (Exception e) {
             return new CustomResponse(CustomResponseCodes.ERROR, e.getMessage());

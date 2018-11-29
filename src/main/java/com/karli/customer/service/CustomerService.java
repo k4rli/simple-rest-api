@@ -117,18 +117,12 @@ public class CustomerService {
     public Customer updateCustomer(Customer currentCustomer, Map<String, String> newValues) throws ParseException {
         for (String param : newValues.keySet()) {
             String value = newValues.get(param);
-            if (param.equals("name")) {
-                this.updateCustomerName(currentCustomer, value);
-            }
-            if (param.equals("address")) {
-                this.updateCustomerAddress(currentCustomer, value);
-            }
+            if (param.equals("name")) this.updateCustomerName(currentCustomer, value);
+            if (param.equals("address")) this.updateCustomerAddress(currentCustomer, value);
+            if (param.equals("birthday")) this.updateCustomerBirthday(currentCustomer, simpleDateFormat.parse(value));
             if (param.equals("balance")) {
                 BigDecimal newBalance = BigDecimal.valueOf(Double.parseDouble(value));
                 this.updateCustomerBalance(currentCustomer, newBalance);
-            }
-            if (param.equals("birthday")) {
-                this.updateCustomerBirthday(currentCustomer, simpleDateFormat.parse(value));
             }
         }
         return this.customerRepository.save(currentCustomer);
