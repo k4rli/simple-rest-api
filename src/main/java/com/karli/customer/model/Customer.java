@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.Entity;
@@ -36,5 +37,6 @@ public class Customer {
     private BigDecimal balance;
 
     @NotNull
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date birthday;
 }

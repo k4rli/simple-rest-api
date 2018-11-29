@@ -75,7 +75,7 @@ public class CustomerController {
     @RequestMapping(
             value = {"/modifyCustomer"},
             method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON_UTF8_VALUE,
+            consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public CustomResponse modifyCustomer(@RequestParam Map<String, String> allRequestParams) throws MissingParameterException {

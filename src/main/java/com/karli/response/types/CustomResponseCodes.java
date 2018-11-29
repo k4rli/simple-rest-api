@@ -4,9 +4,13 @@ public enum CustomResponseCodes {
     SUCCESS("SUCCESS"),
     ERROR("ERROR");
 
-    private String responseCode;
+    private String code;
 
-    CustomResponseCodes(String responseCode) {
-        this.responseCode = responseCode;
+    CustomResponseCodes(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
     }
 }
