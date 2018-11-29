@@ -78,7 +78,9 @@ public class CustomerController {
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
-    public CustomResponse modifyCustomer(@RequestParam Map<String, String> allRequestParams) throws MissingParameterException {
+    public CustomResponse modifyCustomer(@RequestParam Map<String, String> allRequestParams)
+            throws MissingParameterException, CustomerNotFoundException
+    {
         if (!allRequestParams.containsKey("id")) throw new MissingParameterException("id");
         long customerID = Long.parseLong(allRequestParams.get("id"));
         try {
