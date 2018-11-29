@@ -1,8 +1,8 @@
 package com.karli.response.types;
 
 public enum CustomResponseCodes {
-    SUCCESS("success"),
-    ERROR("error");
+    SUCCESS("SUCCESS"),
+    ERROR("ERROR");
 
     private String responseCode;
 
