@@ -17,7 +17,6 @@ public class CustomerDTO {
     private static final int GENERIC_FIELD_MIN_LENGTH = 1;
     private static final String CUSTOMER_DATE_FORMAT = "dd.MM.yyyy";
 
-    @JsonIgnore
     @NotNull
     long id;
 
