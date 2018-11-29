@@ -1,7 +1,5 @@
 package com.karli;
 
-import com.karli.customer.model.CustomerDTO;
-import com.karli.response.model.CustomResponse;
 import com.karli.response.types.CustomResponseCodes;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +19,6 @@ import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -120,11 +117,12 @@ public class CustomerOperationTests {
                 .accept(MediaType.APPLICATION_JSON_UTF8);
         MockHttpServletResponse addCustomerRequestResponse = this.mockMvc
                 .perform(addCustomerRequest)
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                .andExpect(status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.customer.id").isNumber())
                 .andReturn().getResponse();
         Map<String, Object> mappedResults = gsonJsonParser.parseMap(addCustomerRequestResponse.getContentAsString());
-        long customerID = Math.round((double) mappedResults.get("id"));
+        Map<String, Object> customerDataResults = (Map<String, Object>) mappedResults.get("customer");
+        long customerID = Math.round((double) customerDataResults.get("id"));
 
         MockHttpServletRequestBuilder deleteCustomerRequest = delete(DELETE_CUSTOMER_ENDPOINT)
                 .param("id", Long.toString(customerID, 10));
@@ -136,12 +134,12 @@ public class CustomerOperationTests {
     }
 
     @Test
-    public void shouldDeleteCustomerWhoDoesNotExist() throws Exception {
+    public void attemptToDeleteNonexistentCustomer() throws Exception {
         MockHttpServletRequestBuilder deleteCustomerRequest = delete(DELETE_CUSTOMER_ENDPOINT)
                 .param("id", "7457314");
         this.mockMvc
                 .perform(deleteCustomerRequest)
-                .andExpect(status().is(204))
+                .andExpect(status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(CustomResponseCodes.ERROR.getCode()))
                 .andReturn();
     }
@@ -183,14 +181,14 @@ public class CustomerOperationTests {
 
     @Test
     public void shouldGetCustomerWhoDoesNotExist() throws Exception {
+        String customerID = Long.toString(45745745783L);
         MockHttpServletRequestBuilder getCustomerRequest = get(GET_CUSTOMER_ENDPOINT)
-                .param("id", "2");
+                .param("id", customerID);
         this.mockMvc
                 .perform(getCustomerRequest)
-                .andExpect(status().is(204))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(CustomResponseCodes.ERROR.getCode()))
-                .andExpect(MockMvcResultMatchers.jsonPath("*.error").value("Could not find customer by ID: 3"))
-                .andDo(print())
+                .andExpect(status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result")
+                        .value(CustomResponseCodes.ERROR.getCode()))
                 .andReturn();
     }
 
@@ -208,7 +206,7 @@ public class CustomerOperationTests {
                         .contentType(MediaType.APPLICATION_JSON_UTF8)
                         .content(initialCustomer)
                         .accept(MediaType.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk())
+                .andExpect(status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customer.id").isNumber())
                 .andReturn().getResponse();
 
@@ -216,18 +214,33 @@ public class CustomerOperationTests {
         Map<String, Object> customerDataResults = (Map<String, Object>) mappedResults.get("customer");
         long customerID = Math.round((double) customerDataResults.get("id"));
 
-        MockHttpServletRequestBuilder getCustomerRequest = put(MODIFY_CUSTOMER_ENDPOINT)
+        MockHttpServletRequestBuilder modifyCustomerRequest = put(MODIFY_CUSTOMER_ENDPOINT)
                 .param("id", Long.toString(customerID, 10))
                 .param("address", "51 ajhõP");
         this.mockMvc
-                .perform(getCustomerRequest)
-                .andExpect(status().isOk())
+                .perform(modifyCustomerRequest)
+                .andExpect(status().is(200))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(CustomResponseCodes.SUCCESS.getCode()))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customer.id").isNumber())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customer.name").value(initialCustomerAsJSON.get("name")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customer.address").value("51 ajhõP"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customer.balance").value(initialCustomerAsJSON.get("balance")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.customer.birthday").isString())
+                .andReturn();
+    }
+
+    @Test
+    public void attemptToModifyNonexistentCustomer() throws Exception {
+        MockHttpServletRequestBuilder modifyCustomerRequest = put(MODIFY_CUSTOMER_ENDPOINT)
+                .param("id", "6436346878")
+                .param("address", "51 ajhõP");
+        this.mockMvc
+                .perform(modifyCustomerRequest)
+                .andExpect(status().is(200))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value(CustomResponseCodes.ERROR.getCode()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.error").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.customer").doesNotExist())
+                .andDo(print())
                 .andReturn();
     }
 }
