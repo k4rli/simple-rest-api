@@ -1,17 +1,18 @@
 package com.karli.customer.exceptions.customer;
 
-import org.springframework.http.HttpStatus;
+import com.karli.response.model.CustomResponse;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 class CustomerNotFoundAdvice {
     @ResponseBody
     @ExceptionHandler(CustomerNotFoundException.class)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    String customerNotFoundHandler(CustomerNotFoundException e) {
-        return "{\"error\": \"" + e.getMessage() + "\"}";
+    ResponseEntity customerNotFoundHandler(CustomerNotFoundException e) {
+        CustomResponse customResponse = new CustomResponse("error", e.getMessage());
+        return ResponseEntity.status(204).contentType(MediaType.APPLICATION_JSON_UTF8).body(customResponse);
     }
 }

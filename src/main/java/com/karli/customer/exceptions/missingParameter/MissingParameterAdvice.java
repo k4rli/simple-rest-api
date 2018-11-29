@@ -1,17 +1,18 @@
 package com.karli.customer.exceptions.missingParameter;
 
-import org.springframework.http.HttpStatus;
+import com.karli.response.model.CustomResponse;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 class MissingParameterAdvice {
-    @ResponseBody
+    @ResponseBody()
     @ExceptionHandler(MissingParameterException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    String missingParameterHandler(MissingParameterException e) {
-        return "{\"error\": \"" + e.getMessage() + "\"}";
+    ResponseEntity missingParameterHandler(MissingParameterException e) {
+        CustomResponse customResponse = new CustomResponse("error", e.getMessage());
+        return ResponseEntity.status(400).contentType(MediaType.APPLICATION_JSON_UTF8).body(customResponse);
     }
 }
