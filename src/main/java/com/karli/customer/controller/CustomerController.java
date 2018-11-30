@@ -10,6 +10,9 @@ import com.karli.response.model.CustomResponse;
 import com.karli.response.types.CustomResponseCodes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,8 +82,7 @@ public class CustomerController {
             produces = MediaType.APPLICATION_JSON_UTF8_VALUE
     )
     public CustomResponse modifyCustomer(@RequestParam Map<String, String> allRequestParams)
-            throws MissingParameterException, CustomerNotFoundException
-    {
+            throws MissingParameterException, CustomerNotFoundException {
         if (!allRequestParams.containsKey("id")) throw new MissingParameterException("id");
         long customerID = Long.parseLong(allRequestParams.get("id"));
         try {
@@ -88,6 +90,22 @@ public class CustomerController {
             this.customerService.updateCustomer(currentCustomer, allRequestParams);
             return new CustomResponse(CustomResponseCodes.SUCCESS, currentCustomer);
         } catch (Exception e) {
+            return new CustomResponse(CustomResponseCodes.ERROR, e.getMessage());
+        }
+    }
+
+    @RequestMapping(
+            value = {"/getCustomers"},
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+    )
+    public CustomResponse getAllCustomers(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        try {
+            Pageable pageableRequest = PageRequest.of(page, limit);
+            Page<Customer> resultPage = this.customerService.getCustomers(pageableRequest);
+            return new CustomResponse(CustomResponseCodes.SUCCESS, resultPage.getContent());
+        } catch (Exception e) {
+            log.error("Exception occurred when trying to find records, assuming invalid parameters", e);
             return new CustomResponse(CustomResponseCodes.ERROR, e.getMessage());
         }
     }

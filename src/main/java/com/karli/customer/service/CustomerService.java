@@ -5,6 +5,10 @@ import com.karli.customer.model.Customer;
 import com.karli.customer.repository.CustomerRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -126,5 +130,10 @@ public class CustomerService {
             }
         }
         return this.customerRepository.save(currentCustomer);
+    }
+
+    public Page<Customer> getCustomers(Pageable pageable) {
+        Page<Customer> page = this.customerRepository.findAll(pageable);
+        return page;
     }
 }
