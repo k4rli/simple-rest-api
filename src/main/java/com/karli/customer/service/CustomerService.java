@@ -5,6 +5,8 @@ import com.karli.customer.repository.CustomerRepository;
 import com.karli.exceptions.customer.CustomerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -70,8 +72,8 @@ public class CustomerService {
     }
 
     /**
-     * @param customer   customer to modify
-     * @param value balance
+     * @param customer customer to modify
+     * @param value    balance
      * @return updated customer
      */
     private Customer updateCustomerBalance(Customer customer, String value) {
@@ -121,5 +123,9 @@ public class CustomerService {
             if (param.equals("balance")) updateCustomerBalance(currentCustomer, value);
         }
         return customerRepository.save(currentCustomer);
+    }
+
+    public Page<Customer> getCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 }

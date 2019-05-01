@@ -2,15 +2,22 @@ server:
   port: 8080
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/simplerestapi
-    username: postgres
-    password: postgres
-    initialization-mode: always
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+    continue-on-error: true
+    driver-class-name: org.h2.Driver
+#    url: jdbc:postgresql://localhost:5432/simplerestapi
+#    username: postgres
+#    password: postgres
+#    initialization-mode: always
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: validate
+#      ddl-auto: validate
+      ddl-auto: create-drop
   liquibase:
     change-log: classpath:migrations/liquibase-changelog.xml

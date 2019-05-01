@@ -43,7 +43,7 @@ public class InitializeAppTest {
         this.mockMvc
                 .perform(get("/test"))
                 .andExpect(status().is(200))
-                .andExpect(content().contentType("application/json"))
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0]").value("Hello"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1]").value("world"));
     }
