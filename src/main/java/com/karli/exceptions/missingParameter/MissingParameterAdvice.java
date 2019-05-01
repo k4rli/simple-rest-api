@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @ControllerAdvice
 class MissingParameterAdvice {
-    @ResponseBody()
+
+    @ResponseBody
     @ExceptionHandler(MissingParameterException.class)
     ResponseEntity missingParameterHandler(MissingParameterException e) {
         CustomResponse customResponse = new CustomResponse(CustomResponseCodes.ERROR, e.getMessage());

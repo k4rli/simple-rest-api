@@ -1,10 +1,10 @@
 package com.karli.customer.service;
 
-import com.karli.exceptions.customer.CustomerNotFoundException;
 import com.karli.customer.model.Customer;
 import com.karli.customer.repository.CustomerRepository;
-
-import lombok.extern.slf4j.Slf4j;
+import com.karli.exceptions.customer.CustomerNotFoundException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -14,16 +14,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
-@Slf4j
+@Log4j2
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
     private DateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
 
     /**
      * Creates a new customer and saves to database.
@@ -32,8 +29,8 @@ public class CustomerService {
      * @return created customer
      */
     public Customer createNewCustomer(Customer customer) {
-        log.info("Creating new customer. Name: " + customer.getName());
-        return this.customerRepository.save(customer);
+        log.info("Creating new customer. Name: {}", customer.getName());
+        return customerRepository.save(customer);
     }
 
     /**
@@ -42,9 +39,9 @@ public class CustomerService {
      * @throws CustomerNotFoundException if can't find customer by ID
      */
     public Customer findCustomerByID(long id) throws CustomerNotFoundException {
-        Customer targetCustomer = this.customerRepository.findById(id);
+        Customer targetCustomer = customerRepository.findById(id);
         if (targetCustomer == null) throw new CustomerNotFoundException(id);
-        log.info("Found customer with required ID: " + id);
+        log.info("Found customer with required ID: {}", id);
         return targetCustomer;
     }
 
@@ -53,78 +50,76 @@ public class CustomerService {
      * @throws CustomerNotFoundException if can't find customer by ID
      */
     public void deleteCustomerByID(long id) throws CustomerNotFoundException {
-        long targetCustomer = this.customerRepository.deleteById(id);
+        long targetCustomer = customerRepository.deleteById(id);
         if (targetCustomer == 0) throw new CustomerNotFoundException(id);
-        log.info("Customer with ID " + id + " has been deleted.");
+        log.info("Customer with ID {} has been deleted.", id);
     }
 
     /**
-     * @param customer customer to modify
+     * @param customer   customer to modify
      * @param newAddress changed address
      * @return updated customer
      */
     private Customer updateCustomerAddress(Customer customer, String newAddress) {
         String oldAddress = customer.getAddress();
         customer.setAddress(newAddress);
-        log.info("Updated address for customer with ID "+ customer.getId()
-                + ". Old address: " + oldAddress
-                + ", new address: " + newAddress + ".");
+        log.info("Updated address for customer with ID {}. Old address: {}, new address: {}.",
+                customer.getId(), oldAddress, newAddress
+        );
         return customer;
     }
 
     /**
-     * @param customer customer to modify
-     * @param newBalance changed balance
+     * @param customer   customer to modify
+     * @param value balance
      * @return updated customer
      */
-    private Customer updateCustomerBalance(Customer customer, BigDecimal newBalance) {
+    private Customer updateCustomerBalance(Customer customer, String value) {
+        BigDecimal newBalance = BigDecimal.valueOf(Double.parseDouble(value));
         BigDecimal oldBalance = customer.getBalance();
         customer.setBalance(newBalance);
-        log.info("Updated balance for customer with ID "+ customer.getId()
-                + ". Old balance: " + oldBalance.toString()
-                + ", new balance: " + newBalance + ".");
+        log.info("Updated balance for customer with ID {}. Old balance: {}, new balance: {}.",
+                customer.getId(), oldBalance, newBalance
+        );
         return customer;
     }
 
     /**
      * @param customer customer to modify
-     * @param newName changed name
+     * @param newName  changed name
      * @return updated customer
      */
     private Customer updateCustomerName(Customer customer, String newName) {
         String oldName = customer.getName();
         customer.setName(newName);
-        log.info("Updated name for customer with ID "+ customer.getId()
-                + ". Old name: " + oldName
-                + ", new name: " + newName + ".");
+        log.info("Updated name for customer with ID {}. Old name: {}, new name: {}.",
+                customer.getId(), oldName, newName
+        );
         return customer;
     }
 
     /**
-     * @param customer customer to modify
+     * @param customer    customer to modify
      * @param newBirthday changed birthday
      * @return updated customer
      */
     private Customer updateCustomerBirthday(Customer customer, Date newBirthday) {
         Date oldBirthday = customer.getBirthday();
         customer.setBirthday(newBirthday);
-        log.info("Updated birthday for customer with ID "+ customer.getId()
-                + ". Old birthday: " + oldBirthday.toString()
-                + ", new birthday: " + newBirthday.toString() + ".");
+        log.info("Updated birthday for customer with ID {}. Old birthday: {}, new birthday: {}.",
+                customer.getId(), oldBirthday, newBirthday
+        );
         return customer;
     }
 
     public Customer updateCustomer(Customer currentCustomer, Map<String, String> newValues) throws ParseException {
         for (String param : newValues.keySet()) {
             String value = newValues.get(param);
-            if (param.equals("name")) this.updateCustomerName(currentCustomer, value);
-            if (param.equals("address")) this.updateCustomerAddress(currentCustomer, value);
-            if (param.equals("birthday")) this.updateCustomerBirthday(currentCustomer, simpleDateFormat.parse(value));
-            if (param.equals("balance")) {
-                BigDecimal newBalance = BigDecimal.valueOf(Double.parseDouble(value));
-                this.updateCustomerBalance(currentCustomer, newBalance);
-            }
+            if (param.equals("name")) updateCustomerName(currentCustomer, value);
+            if (param.equals("address")) updateCustomerAddress(currentCustomer, value);
+            if (param.equals("birthday")) updateCustomerBirthday(currentCustomer, simpleDateFormat.parse(value));
+            if (param.equals("balance")) updateCustomerBalance(currentCustomer, value);
         }
-        return this.customerRepository.save(currentCustomer);
+        return customerRepository.save(currentCustomer);
     }
 }
